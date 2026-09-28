@@ -42,7 +42,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section class="pebras"><div class="wrap pebras-grid"><div class="pebras-logo"><a href="https://pebras.com.br/" target="_blank" rel="noopener" aria-label="Acessar o PEBRAS"><img src="LOGO PEBRAS RETANGULAR 18-09-26.png" alt="PEBRAS Portal EMS Brasil"></a></div><div><div class="eyebrow">Conheça o PEBRAS</div><h2>Nossa frente editorial para o mercado EMS.</h2><p>Informação, ciência, mercado e comunidade reunidos em um portal especializado no universo EMS, seus profissionais, fabricantes, estudos e acontecimentos.</p></div><a class="button" href="https://pebras.com.br/" target="_blank" rel="noopener">Acessar o PEBRAS →</a></div></section>
 <section class="story" id="grupo"><div class="wrap story-grid"><div><div class="eyebrow">Sobre a CFG Group</div><h2>Diferentes negócios.<br>Uma mesma visão.</h2></div><div class="story-copy"><p>A CFG Group reúne quatro negócios com identidades próprias e mantém também uma frente editorial especializada, o PEBRAS — Portal EMS Brasil.</p><p>A Eletrofit Wear transforma conhecimento do universo EMS em produto. A Interbusiness Oportunidades aproxima compradores, vendedores e equipamentos. A Interbusiness Locações transforma tecnologia em acesso e disponibilidade. A Beauty Connection Brazil conecta pacientes a profissionais e oportunidades na estética. O PEBRAS amplia essa presença por meio de conteúdo, informação e conexão com o mercado EMS.</p><p>O ponto comum é simples: entender antes de oferecer, construir relações de longo prazo e fazer com que boas oportunidades encontrem o caminho certo.</p></div></div></section>
-<section class="contact" id="contato"><div class="wrap contact-grid"><div><div class="eyebrow">Fale com a CFG Group</div><h2>Vamos conversar?</h2><p>Conte-nos sobre o seu interesse. Nossa equipe retornará o quanto antes.</p></div><form class="form" onsubmit="event.preventDefault();alert('Formulário visual pronto. A integração de envio será configurada na próxima etapa.');"><input required placeholder="Nome completo*"><input placeholder="Empresa"><input required placeholder="WhatsApp*"><input type="email" required placeholder="E-mail*"><select><option>Assunto</option><option>Eletrofit Wear</option><option>Interbusiness Oportunidades</option><option>Interbusiness Locações</option><option>Beauty Connection Brazil</option><option>PEBRAS</option><option>Outro</option></select><textarea placeholder="Mensagem"></textarea><button type="submit">Enviar mensagem →</button></form></div></section>
+<section class="contact" id="contato"><div class="wrap contact-grid"><div><div class="eyebrow">Fale com a CFG Group</div><h2>Vamos conversar?</h2><p>Conte-nos sobre o seu interesse. Nossa equipe retornará o quanto antes.</p></div><form class="form" id="cfg-contact-form"><input name="nome" autocomplete="name" required placeholder="Nome completo*"><input name="empresa" autocomplete="organization" placeholder="Empresa"><input name="whatsapp" type="tel" autocomplete="tel" required placeholder="WhatsApp*"><input name="email" type="email" autocomplete="email" required placeholder="E-mail*"><select name="assunto" required><option value="" selected disabled>Assunto*</option><option>Eletrofit Wear</option><option>Interbusiness Oportunidades</option><option>Interbusiness Locações</option><option>Beauty Connection Brazil</option><option>PEBRAS</option><option>Outro</option></select><textarea name="mensagem" placeholder="Mensagem"></textarea><button type="submit">Continuar pelo WhatsApp →</button><p style="grid-column:1/-1;font-size:13px;line-height:1.5;margin:0;color:#555">Seus dados serão preparados em uma mensagem. Confirme o envio no WhatsApp para concluir o contato.</p></form></div></section>
 </main>
 <footer><div class="wrap foot"><div><strong>CFG GROUP</strong> — Comércio, Locação e Intermediação Ltda.</div><div>Rio de Janeiro · Brasil</div></div></footer>
+<script>
+(function(){
+  var form=document.getElementById('cfg-contact-form');
+  if(!form)return;
+  var started=false;
+  form.addEventListener('input',function(){
+    if(started)return;
+    started=true;
+    window.dataLayer=window.dataLayer||[];
+    window.dataLayer.push({event:'cfg_contact_form_start'});
+  });
+  form.addEventListener('submit',function(event){
+    event.preventDefault();
+    if(!form.reportValidity())return;
+    var fields=new FormData(form);
+    var lines=[
+      'Olá! Vim pelo site da CFG Group e gostaria de entrar em contato.',
+      '',
+      'Nome: '+fields.get('nome'),
+      'Empresa: '+(fields.get('empresa')||'Não informada'),
+      'WhatsApp: '+fields.get('whatsapp'),
+      'E-mail: '+fields.get('email'),
+      'Assunto: '+fields.get('assunto'),
+      'Mensagem: '+(fields.get('mensagem')||'Não informada')
+    ];
+    window.dataLayer=window.dataLayer||[];
+    window.dataLayer.push({event:'cfg_contact_whatsapp_click',contact_subject:String(fields.get('assunto'))});
+    window.open('https://wa.me/5521979681976?text='+encodeURIComponent(lines.join('\n')),'_blank','noopener');
+  });
+})();
+</script>
 </body></html>
